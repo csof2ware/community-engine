@@ -84,10 +84,6 @@ client.on('interactionCreate', async (i) => {
       const target = i.options.getUser('user');
       const day = i.options.getInteger('day');
       if (day < 1 || day > 21) return i.reply({ content: '❌ dia deve ser 1-21', ephemeral: true });
-      
-      // CRÍTICO: deferReply ANTES de trabalho pesado (evita timeout de 3s do Discord)
-      await i.deferReply();
-      
       await redis.sadd('progress:' + target.id, day);
       const count = await redis.scard('progress:' + target.id);
       let extra = '';
@@ -107,7 +103,7 @@ client.on('interactionCreate', async (i) => {
           } catch (e) { extra = '\n❌ badge falhou: ' + e.message; }
         }
       }
-      return i.editReply({ content: '✅ *' + target.username + '* agora tem *' + count + '/21* dias.' + extra });
+      return i.reply({ content: '✅ *' + target.username + '* agora tem *' + count + '/21* dias.' + extra });
     }
 
     if (i.commandName === 'claim') {
