@@ -22,62 +22,36 @@
 | Discord como único ponto de falha | Engine independente — Discord é fachada, o estado vive na chain |
 | Replay de assinaturas | *Nonce único por claim* consumido no contrato |
 
-## 🏗️ Arquiteturacat > README.md << 'EOF'
-# 🏛️ MintPass · Community Engine
-
-*Motor de comunidade on-chain gasless da Csoftware.* Distribui valor, reputação e credenciais educacionais verificáveis — rodando ao vivo no desafio [21-days-onchain](foundation/21-days-onchain/) e empacotado para qualquer comunidade Discord.
-
-[![CI](https://github.com/csof2ware/community-engine/actions/workflows/ci.yml/badge.svg)](https://github.com/csof2ware/community-engine/actions/workflows/ci.yml)
-![Tests](https://img.shields.io/badge/tests-22%20passing-brightgreen)
-![Solidity](https://img.shields.io/badge/Solidity-0.8.24-blue)
-![Node](https://img.shields.io/badge/Node-22-green)
-![License](https://img.shields.io/badge/License-MIT-yellow)
-
-> Educação descentralizada com prova on-chain: cada conclusão de marco vira um badge soulbound auditável por qualquer pessoa, para sempre.
-
----
-
-## 🎯 O problema que resolve
-
-| Dor real | Solução no engine |
-|---|---|
-| Usuário sem ETH não consegue claimar | *Relayer gasless* — assinatura EIP-712 off-chain, tx paga pelo operador |
-| Comunidade sem identidade on-chain | *Badges soulbound* ERC1155 não-transferíveis |
-| Gamificação sem prova verificável | Progresso em Redis + *tx on-chain auditável* |
-| Discord como único ponto de falha | Engine independente — Discord é fachada, o estado vive na chain |
-| Replay de assinaturas | *Nonce único por claim* consumido no contrato |
-
 ## 🏗️ Arquitetura
 
-
-─────────────────────────────────────────────┐
-│   DISCORD (fachada social)                   │
-│  /claim /balance /leaderboard /link          │
-│  /approve-day /myprogress /ping              │
-└───────────────────┬──────────────────────────┘
-│
-┌──────────┬───────────┼───────────┬──────────┐
-▼          ▼           ▼           ▼          ▼
-┌────────┐ ┌────────┐ ┌─────────┐ ┌─────────┐ ┌────────┐
-│ API    │ │ Signer │ │ Relayer │ │ Badge   │ │ Worker │
-│ :3000  │ │ :3001  │ │ :3002   │ │ :3003   │ │ batch  │
-└───┬────┘ └───┬────┘ └───┬─────┘ └───┬─────┘ └───┬────┘
-│          │          │           │           │
-└──────────┴──────────┴─────┬────────────────┘
-▼
-┌────────────────────────┐
-│  Hardhat Chain :8545   │
-│  AirdropToken (1155)   │
-│  MerkleAirdrop         │
-│  SignedAirdrop (712)   │
-│  ChallengeBadge (SB)   │
-└───────────┬────────────┘
-┌──────────┴──────────┐
-▼                     ▼
-┌────────────        ┌────────────┐
-│ The Graph  │        │  Postgres  │
-│ analytics  │        │  + Redis   │
-└────────────┘        └────────────┘
+        ┌──────────────────────────────────────────────┐
+        │   DISCORD (fachada social)                   │
+        │  /claim /balance /leaderboard /link          │
+        │  /approve-day /myprogress /ping              │
+        └───────────────────┬──────────────────────────┘
+                            │
+     ┌──────────┬───────────┼───────────┬──────────┐
+     ▼          ▼           ▼           ▼          ▼
+ ┌────────┐ ┌────────┐ ┌─────────┐ ┌─────────┐ ┌────────┐
+ │ API    │ │ Signer │ │ Relayer │ │ Badge   │ │ Worker │
+ │ :3000  │ │ :3001  │ │ :3002   │ │ :3003   │ │ batch  │
+ └───┬────┘ └───┬────┘ └───┬─────┘ └───┬─────┘ └───┬────┘
+     │          │          │           │           │
+     └──────────┴──────────┴─────┬────────────────┘
+                                 ▼
+                    ┌────────────────────────┐
+                    │  Hardhat Chain :8545   │
+                    │  AirdropToken (1155)   │
+                    │  MerkleAirdrop         │
+                    │  SignedAirdrop (712)   │
+                    │  ChallengeBadge (SB)   │
+                    └───────────┬────────────┘
+                     ┌──────────┴──────────┐
+                     ▼                     ▼
+              ┌────────────┐        ┌────────────┐
+              │ The Graph  │        │  Postgres  │
+              │ analytics  │        │  + Redis   │
+              └────────────┘        └────────────┘
 
 *Fluxo do claim gasless:* usuário pede → Signer valida e assina (EIP-712 com nonce) → Relayer paga o gas e envia → contrato confere assinatura + nonce → TransferSingle → Graph indexa → Discord mostra embed com a tx.
 
@@ -85,17 +59,15 @@
 
 ## 🚀 Quickstart
 
-bash
-git clone https://github.com/csof2ware/community-engine.git
-cd community-engine
-cp .env.example .env        # edite com seus valores
-docker compose up -d
-docker compose exec dev sh
-sh boot.sh                  # sobe chain, contratos, worker, API, signer, relayer
+    git clone https://github.com/csof2ware/community-engine.git
+    cd community-engine
+    cp .env.example .env        # edite com seus valores
+    docker compose up -d
+    docker compose exec dev sh
+    sh boot.sh                  # chain, contratos, worker, API, signer, relayer
 
-curl http://localhost:3000/health
-# {"healthy":true,"checks":{"redis":"ok","postgres":"ok","rpc":"ok"}}
-
+    curl http://localhost:3000/health
+    # {"healthy":true,"checks":{"redis":"ok","postgres":"ok","rpc":"ok"}}
 
 ### Contratos (dev local)
 
@@ -111,9 +83,9 @@ curl http://localhost:3000/health
 
 | Rota | Retorno |
 |---|---|
-| GET /health | {healthy, checks:{redis, postgres, rpc}} |
-| GET /config | {airdropAddress, signedAddress, root} |
-| GET /stats | {holders, totalMinted, lastBlock} |
+| GET /health | healthy + checks (redis, postgres, rpc) |
+| GET /config | airdropAddress, signedAddress, root |
+| GET /stats | holders, totalMinted, lastBlock |
 | GET /holders | lista de holders |
 | GET /proof/:address | prova Merkle (404 se inexistente) |
 | GET /metrics | métricas formato Prometheus |
@@ -132,16 +104,14 @@ Loop validado ao vivo: *mod aprova 7 dias → badge bronze mintado on-chain → 
 | 14 dias | 🥈 Day-14 · Builder | prata |
 | 21 dias | 🥇 Day-21 · On-Chain Master | ouro |
 
-Não-transferíveis por design (_update override): credencial educacional não se compra, não se vende, não se empresta.
+Não-transferíveis por design: credencial educacional não se compra, não se vende, não se empresta.
 
 ## 🧪 Testes
 
-bash
-npx hardhat test
-# 22 passing — 16 contratos + 6 API
+    npx hardhat test
+    # 22 passing — 16 contratos + 6 API
 
-
-Cobertura: batch mint, double-claim, replay EIP-712, assinatura inválida, soulbound, nullifier ZK, permissões onlyOwner, e o contrato HTTP completo da API.
+Cobertura: batch mint, double-claim, replay EIP-712, assinatura inválida, soulbound, nullifier ZK, permissões onlyOwner e o contrato HTTP completo da API.
 
 ## 🛡️ Segurança & CI
 
