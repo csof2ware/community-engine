@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>curso-modulos-0-2.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="21-dias-on-chain">21 Dias On-Chain</h1>
+<h2 id="engenharia-de-comunidades-web3-com-prova-on-chain">Engenharia de Comunidades Web3 com Prova On-Chain</h2>
+<p><img src="../../assets/curso/capa.png" alt="Capa"></p>
+<p>MintPass Community Engine · v1.0.0-mintpass · Csoftware · 2026</p>
+<hr>
+<h2 id="1-o-nome">1. O nome</h2>
+<ul>
+<li>Curso: 21 Dias On-Chain</li>
+<li>Engine: MintPass Community Engine (repo community-engine)</li>
+<li>Comunidade: MintPass Lab (Discord + Telegram)</li>
+<li>Certificado: badge soulbound ERC1155 (bronze 7 / prata 14 / ouro 21)</li>
+</ul>
+<h2 id="2-o-motivo">2. O motivo</h2>
+<p>Educacao web3 tradicional entrega video e PDF. Nenhum dos dois prova
+que o aluno construiu algo. Ao mesmo tempo:</p>
+<table>
+<thead>
+<tr>
+<th>Dor do ecossistema</th>
+<th>Resposta do engine</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aluno sem ETH nao consegue praticar airdrop/claim</td>
+<td>Relayer gasless: assinatura EIP-712, tx paga pelo operador</td>
+</tr>
+<tr>
+<td>Certificado de curso e falsificavel</td>
+<td>Badge soulbound on-chain: auditavel por qualquer um, para sempre</td>
+</tr>
+<tr>
+<td>Comunidade morre quando o Discord morre</td>
+<td>Estado vive na chain; Discord e Telegram sao fachadas</td>
+</tr>
+<tr>
+<td>Projetos nascem sem higiene de segredos</td>
+<td>CI com gitleaks + allowlist documentada desde o dia 1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-os-diferenciais">3. Os diferenciais</h2>
+<ol>
+<li>Prova on-chain por aula: cada missao termina em transacao verificavel</li>
+<li>Badge soulbound: credencial que nao se compra, vende ou empresta</li>
+<li>Gasless: barreira de entrada zero (sem ETH na carteira)</li>
+<li>Sala de aula viva: mod aprova, bot minta, cargo cai no Discord</li>
+<li>Saga real documentada: cada bug que derrubou a construcao virou
+linha de tabela neste material (aprende-se com cicatriz, nao com teoria)</li>
+<li>Engine reutilizavel: qualquer comunidade deploya o mesmo motor</li>
+<li>Multi-fachada desde o inicio: Discord e Telegram lendo a MESMA chain</li>
+</ol>
+<h2 id="4-por-que-o-metodo-guiado-gera-entendimento-real">4. Por que o metodo guiado gera entendimento real</h2>
+<ul>
+<li>Execucao obrigatoria: nao se assiste, se roda (retrieval practice)</li>
+<li>Feedback imediato: cada comando tem saida esperada para conferir</li>
+<li>Erro produtivo: incidentes reais viram tabela de diagnostico</li>
+<li>Repeticao espacada: 21 dias, 3 arcos, marcos cumulativos 7/14/21</li>
+<li>Verificacao externa dupla: moderador humano + contrato na chain</li>
+<li>Portfolio como efeito colateral: repo publico, CI verde, txs e badges</li>
+</ul>
+<h2 id="5-como-usar-este-material">5. Como usar este material</h2>
+<p>O loop de cada aula:</p>
+<pre><code>LER (o que faz / como faz)
+-&gt; RODAR (comandos finais atualizados)
+-&gt; CONFERIR (saida esperada)
+-&gt; PROVAR (proof on-chain / criterio de aprovacao)
+-&gt; LOGAR (poste no canal dia-a-dia da sua comunidade)
+</code></pre>
+<p>Convencoes dos blocos:</p>
+<ul>
+<li>O QUE FAZ: o resultado observavel do passo</li>
+<li>COMO FAZ: o mecanismo por tras (contrato, servico, protocolo)</li>
+<li>COMANDOS FINAIS: a versao atualizada (v1.0.0-mintpass), nao o historico</li>
+<li>SAIDA ESPERADA: o que voce deve ver para avancar</li>
+<li>ERROS REAIS: o que quebrou na construcao original e como diagnosticar</li>
+<li>PROVA: como um moderador (ou a chain) valida seu dia</li>
+</ul>
+<p>Pre-requisitos: Docker + WSL2 (ou Linux/mac), Git, conta Discord,
+2-4h por dia. Tudo roda dentro do container dev; nada se instala no host.</p>
+<h2 id="6-mapa-da-obra">6. Mapa da obra</h2>
+<table>
+<thead>
+<tr>
+<th>Modulo</th>
+<th>Conteudo</th>
+<th>Marco</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Esta abertura</td>
+<td>—</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Arco 1 Fundamentos (dias 1-7)</td>
+<td>Badge bronze</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Arco 2 Infraestrutura (dias 8-14)</td>
+<td>Badge prata</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Arco 3 Produto (dias 15-21)</td>
+<td>Badge ouro</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Discord, GitHub Actions e seguranca</td>
+<td>CI verde</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Arquitetura final, apendices e runbook</td>
+<td>Graduacao</td>
+</tr>
+</tbody>
+</table>
+<p>Nota de versao: todo comando deste material reflete o estado final
+taggeado v1.0.0-mintpass. Tentativas intermediarias da construcao
+aparecem apenas como licao nos blocos ERROS REAIS.</p>
+<h1 id="módulo-1--arco-1-fundamentos-dias-1-7">Módulo 1 — Arco 1: Fundamentos (Dias 1-7)</h1>
+<p>Objetivo do arco: sair do zero e terminar com um claim gasless minerado
+na sua chain local. Marco: badge bronze Day-7 · Initiate.</p>
+<hr>
+<h2 id="dia-1--subir-o-stack">Dia 1 — Subir o stack</h2>
+<p>O QUE FAZ
+Sobe o engine local inteiro: chain Hardhat, Redis, Postgres, graph-node,
+IPFS e o container dev com Node 22 + Hardhat.</p>
+<p>COMO FAZ
+docker compose orquestra os containers; boot.sh (dentro do dev) espera o
+RPC aceitar conexoes, deploya os contratos base e grava config.json.
+Nada se instala no host: a sala de aula eh o container.</p>
+<p>COMANDOS FINAIS
+docker compose up -d
+docker compose exec dev sh
+sh boot.sh
+curl http://localhost:3000/health</p>
+<p>SAIDA ESPERADA
+{&quot;healthy&quot;:true,&quot;checks&quot;:{&quot;redis&quot;:&quot;ok&quot;,&quot;postgres&quot;:&quot;ok&quot;,&quot;rpc&quot;:&quot;ok&quot;}}</p>
+<p>ERROS REAIS DA SAGA
+Servicos gritavam &quot;Expected token to be set&quot; mesmo com .env existente.
+Causa: dotenv procura .env no diretorio atual, e os servicos rodavam de
+subpastas. Fix final: path absoluto em todo servico
+(config com path.join(__dirname, '..', '.env')).</p>
+<p>PROVA
+/health com 3 oks + containers saudaveis. Mod aprova: /approve-day day:1</p>
+<hr>
+<h2 id="dia-2--primeiro-contrato-airdroptoken-erc1155">Dia 2 — Primeiro contrato: AirdropToken (ERC1155)</h2>
+<p>O QUE FAZ
+Token do curso: um id unico, mint restrito ao dono, URI de metadata
+configuravel.</p>
+<p>COMO FAZ
+ERC1155 do OpenZeppelin com onlyOwner em mint e setURI. A suite testa
+batch mint, airdrop multi-carteiras e bloqueio de estranhos.</p>
+<p>COMANDOS FINAIS
+npx hardhat compile
+npx hardhat test --grep &quot;AirdropToken&quot;</p>
+<p>SAIDA ESPERADA
+Compiled 1 Solidity file successfully + testes passando
+(batch, airdrop varias carteiras, bloqueio de estranhos)</p>
+<p>ERROS REAIS DA SAGA
+Sem incidente grave — mas a revisao do dia criou o teste &quot;bloquear
+estranhos&quot;: mint sem onlyOwner deixaria qualquer um emitir token.
+A restricao entrou ANTES do deploy, nao depois do susto.</p>
+<p>PROVA
+Compile limpo + suite verde. Mod aprova: /approve-day day:2</p>
+<hr>
+<h2 id="dia-3--deploy-local">Dia 3 — Deploy local</h2>
+<p>O QUE FAZ
+Contratos saem do compile e ganham endereco na chain local.</p>
+<p>COMO FAZ
+boot.sh roda os scripts de deploy em ordem (AirdropToken, MerkleAirdrop,
+SignedAirdrop) e grava config.json, consumido pela API e pelos servicos.</p>
+<p>COMANDOS FINAIS
+sh boot.sh
+curl http://localhost:3000/config</p>
+<p>SAIDA ESPERADA
+{&quot;airdropAddress&quot;:&quot;0x...&quot;,&quot;root&quot;:&quot;0x...&quot;,&quot;signedAddress&quot;:&quot;0x...&quot;}</p>
+<p>ERROS REAIS DA SAGA
+Passar argumento posicional em script (npx hardhat run x.js 0xabc)
+quebra com HH308/HH305: o hardhat nao aceita posicionais livres.
+Padrao final do projeto: argumentos via variavel de ambiente, ex.:
+CLAIMANT=0x... BADGE_ID=7 npx hardhat run scripts/mintBadge.js --network localhost</p>
+<p>PROVA
+/config retorna 3 enderecos validos com codigo na chain.
+Mod aprova: /approve-day day:3</p>
+<hr>
+<h2 id="dia-4--airdrop-merkle-allowlist-justa">Dia 4 — Airdrop Merkle (allowlist justa)</h2>
+<p>O QUE FAZ
+Lista de elegiveis com verificacao O(log n): so quem esta na arvore
+consegue claimar, e o contrato guarda apenas a root.</p>
+<p>COMO FAZ
+Root gerada off-chain com folhas (address, amount); o aluno envia a
+proof; mapping de claim bloqueia double-claim.</p>
+<p>COMANDOS FINAIS
+curl http://localhost:3000/proof/0x<seu-endereco-minusculo>
+npx hardhat test --grep &quot;Merkle&quot;</p>
+<p>SAIDA ESPERADA
+Proof como array de bytes32 + 3 testes passando
+(claim valido, duplo claim bloqueado, fora da lista bloqueado)</p>
+<p>ERROS REAIS DA SAGA
+Licao de construcao: endereco com maiusculas na folha quebra a proof —
+a arvore foi normalizada para minusculas; por isso a API serve a proof
+do endereco lowercase.</p>
+<p>PROVA
+GET /proof retorna sua proof; POST /claim a consome uma unica vez.
+Mod aprova: /approve-day day:4</p>
+<hr>
+<h2 id="dia-5--api-com-rate-limit">Dia 5 — API com rate limit</h2>
+<p>O QUE FAZ
+A cara HTTP do curso: /health /config /stats /holders /proof /metrics,
+com antispam.</p>
+<p>COMO FAZ
+Express + limitador por IP; /metrics expoe contadores no estilo
+Prometheus. Seis dos 22 testes do projeto cobrem exatamente este
+contrato HTTP.</p>
+<p>COMANDOS FINAIS
+curl http://localhost:3000/stats
+for i in $(seq 1 40); do curl -s -o /dev/null -w &quot;%{http_code} &quot; http://localhost:3000/health; done</p>
+<p>SAIDA ESPERADA
+{&quot;holders&quot;:&quot;2&quot;,&quot;totalMinted&quot;:&quot;12&quot;,&quot;lastBlock&quot;:&quot;7&quot;}
+e uma sequencia de 200 que termina em 429 429 429</p>
+<p>ERROS REAIS DA SAGA
+Nenhum incidente — aqui o 429 EH o sucesso: prova de que o limitador
+esta vivo antes de qualquer abuso real.</p>
+<p>PROVA
+/stats coerente com a chain; 429 aparece sob spam.
+Mod aprova: /approve-day day:5</p>
+<hr>
+<h2 id="dia-6--the-graph-indexando-a-chain">Dia 6 — The Graph indexando a chain</h2>
+<p>O QUE FAZ
+Indexador consultavel: quem segura quanto, com quantos transfers —
+sem varrer blocos na mao.</p>
+<p>COMO FAZ
+O subgraph escuta TransferSingle do AirdropToken e mantem
+holder { id, balance, transferCount }; graph-node serve GraphQL na :8000.</p>
+<p>COMANDOS FINAIS
+curl -X POST http://graph-node:8000/subgraphs/name/airdrop-v2 -H 'Content-Type: application/json' -d '{&quot;query&quot;:&quot;{ holders(first: 5, orderBy: balance, orderDirection: desc) { id balance transferCount } }&quot;}'</p>
+<p>SAIDA ESPERADA
+JSON com os holders reais (voce entre eles, balance &gt; 0)</p>
+<p>ERROS REAIS DA SAGA
+Depois de um restart da chain, o graph-node logou &quot;genesis hash zero&quot;
+e indexou nada: o indexador apontava para uma chain que nao existia
+mais. Fix: re-deploy do subgraph com startBlock 0 contra a chain nova.</p>
+<p>PROVA
+A query retorna seu endereco com balance &gt; 0.
+Mod aprova: /approve-day day:6</p>
+<hr>
+<h2 id="dia-7--claim-gasless-eip-712-marco-bronze">Dia 7 — Claim gasless EIP-712 (MARCO BRONZE)</h2>
+<p>O QUE FAZ
+Usuario com ZERO ETH recebe token: assinatura off-chain, gas pago pelo
+operador. A aula que define o produto.</p>
+<p>COMO FAZ
+Tres atores: Signer (:3001) guarda AUTHORITY_KEY e assina o typed data
+Claim(claimant, amount, nonce); Relayer (:3002) guarda RELAYER_KEY e
+envia SignedAirdrop.claim; o contrato recupera a assinatura, consome o
+nonce (anti-replay) e minta. TransferSingle fecha o ciclo e o Graph
+indexa.</p>
+<p>COMANDOS FINAIS
+curl -X POST http://localhost:3001/sign -H 'Content-Type: application/json' -d '{&quot;claimant&quot;:&quot;0x<seu-endereco>&quot;,&quot;amount&quot;:&quot;1&quot;}'
+(copie o JSON retornado e entao:)
+curl -X POST http://localhost:3002/relay -H 'Content-Type: application/json' -d '<cole-o-json-aqui>'</p>
+<p>SAIDA ESPERADA
+{&quot;txHash&quot;:&quot;0x...&quot;,&quot;blockNumber&quot;:N,&quot;newBalance&quot;:&quot;1&quot;}</p>
+<p>ERROS REAIS DA SAGA
+(a) Replay da mesma assinatura morre no contrato com &quot;nonce used&quot; —
+eh o sistema funcionando, nao bug.
+(b) Duas txs do mesmo relayer quase juntas: &quot;nonce too low /
+replacement transaction underpriced&quot;. Fix: fila serial + nonce pending
+explicito em todo servico que envia tx (padrao adotado no badge.js v2).</p>
+<p>PROVA
+TransferSingle para o seu endereco emitido pelo SignedAirdrop, gas pago
+pelo relayer. Mod aprova: /approve-day day:7 -&gt; BADGE BRONZE mintado
+on-chain + cargo Day-7 · Initiate no Discord.</p>
+<hr>
+<p>Fim do Arco 1. Voce agora eh Initiate: tem chain propria, API viva,
+indexador consultavel e um claim gasless com seu nome na chain.
+Proximo modulo: frontend, batches, testes, CI — a prata.</p>
+<h1 id="módulo-2--arco-2-infraestrutura-dias-8-14">Módulo 2 — Arco 2: Infraestrutura (Dias 8-14)</h1>
+<p>Objetivo do arco: transformar o brinquedo do Arco 1 em infraestrutura
+de verdade: frontend vivo, batches eficientes, testes obrigatorios,
+indexador duplo, observabilidade e CI caca-chaves.
+Marco: badge prata Day-14 · Builder.</p>
+<hr>
+<h2 id="dia-8--frontend-que-le-da-chain-nao-de-mim">Dia 8 — Frontend que le da chain, nao de mim</h2>
+<p>O QUE FAZ
+Uma pagina que mostra os holders em tempo real e dispara o claim
+gasless com um clique.</p>
+<p>COMO FAZ
+Polling: a cada poucos segundos a pagina refaz a query GraphQL no
+subgraph; o botao de claim chama Signer e Relayer exatamente como o
+Dia 7 — a UI eh so mais uma fachada do mesmo engine.</p>
+<p>COMANDOS FINAIS
+cd frontend          # pasta do frontend do Dia 8 (ajuste o nome se o seu layout diferir)
+python3 -m http.server 8080
+# abra http://localhost:8080 no navegador</p>
+<p>SAIDA ESPERADA
+Lista de holders carregando sozinha; novo claim aparece sem F5.</p>
+<p>ERROS REAIS DA SAGA
+UI que mostra dado &quot;do backend proprio&quot; mente quando o indexador
+atrasa. Decisao do projeto: a unica fonte da UI eh o Graph — se a chain
+mudou, a tela muda.</p>
+<p>PROVA
+Pagina aberta ao lado do explorer: mesmo saldo, mesma hora.
+Mod aprova: /approve-day day:8</p>
+<hr>
+<h2 id="dia-9--batch-claims-n-claims-1-tx">Dia 9 — Batch claims: N claims, 1 tx</h2>
+<p>O QUE FAZ
+Dez alunos claimam pagando gas de UMA transacao.</p>
+<p>COMO FAZ
+SignedAirdrop.batchClaim itera assinaturas validas e minta em loop
+dentro da mesma tx; o worker alimenta a fila que vira batch.</p>
+<p>COMANDOS FINAIS
+npx hardhat test --grep &quot;varias carteiras&quot;</p>
+<p>SAIDA ESPERADA
+Teste &quot;Deve fazer airdrop para varias carteiras em 1 tx&quot; passando.</p>
+<p>ERROS REAIS DA SAGA
+Batch sem verificacao por item transforma um claim invalido em revert
+total (todos pagam o erro de um). Padrao final: valida cada assinatura
+antes de entrar no lote.</p>
+<p>PROVA
+Uma tx com multiplos TransferSingle no mesmo bloco.
+Mod aprova: /approve-day day:9</p>
+<hr>
+<h2 id="dia-10--testes-nao-sao-opcionais">Dia 10 — Testes nao sao opcionais</h2>
+<p>O QUE FAZ
+Suite automatizada que protege contratos E a API: 22 testes.</p>
+<p>COMO FAZ
+hardhat + mocha/chai para contratos; testes de API via fetch real com
+skip elegante quando os servicos nao estao no ar (before com this.skip).</p>
+<p>COMANDOS FINAIS
+npx hardhat test</p>
+<p>SAIDA ESPERADA
+22 passing</p>
+<p>ERROS REAIS DA SAGA
+Primeira versao dos testes de API deu ECONNREFUSED e derrubou o CI em
+maquina sem stack. Fix: antes de testar, o before() verifica /health;
+sem servicos, os testes viram &quot;pending&quot; em vez de &quot;failing&quot;.
+Segunda versao falhou por suposicoes erradas de formato (/ok vs
+/healthy, totalHolders vs holders) — os testes foram reescritos contra
+o contrato REAL da API. Teste bom documenta a realidade.</p>
+<p>PROVA
+22 passing local + job build-test verde no GitHub.
+Mod aprova: /approve-day day:10</p>
+<hr>
+<h2 id="dia-11--indexador-postgres-segunda-opiniao">Dia 11 — Indexador Postgres (segunda opiniao)</h2>
+<p>O QUE FAZ
+Os mesmos holders, agora em banco relacional: /stats bate com o Graph.</p>
+<p>COMO FAZ
+O indexer escuta os eventos da chain e escreve no Postgres; a API le do
+banco. Duas fontes independentes = auditoria cruzada.</p>
+<p>COMANDOS FINAIS
+curl http://localhost:3000/stats
+curl -X POST http://graph-node:8000/subgraphs/name/airdrop-v2 -H 'Content-Type: application/json' -d '{&quot;query&quot;:&quot;{ holders(first: 100) { id balance } }&quot;}'</p>
+<p>SAIDA ESPERADA
+Mesmo numero de holders e total mintado nas duas saidas.</p>
+<p>ERROS REAIS DA SAGA
+Quando as duas fontes discordam, o bug eh seu amigo: foi assim que um
+endereco maiusculo/minusculo no indice apareceu. Normalizou-se tudo
+para lowercase.</p>
+<p>PROVA
+Conferencia manual das duas fontes sem divergencia.
+Mod aprova: /approve-day day:11</p>
+<hr>
+<h2 id="dia-12--observabilidade-saber-antes-do-usuario">Dia 12 — Observabilidade: saber antes do usuario</h2>
+<p>O QUE FAZ
+/health com checks por dependencia, /metrics com contadores, e logs
+que sobrevivem ao terminal fechar.</p>
+<p>COMO FAZ
+/health testa redis, postgres e rpc de verdade (nao so &quot;estou vivo&quot;);
+/metrics expoe contadores estilo Prometheus; servicos rodam com nohup
+gravando em /tmp/*.log.</p>
+<p>COMANDOS FINAIS
+curl http://localhost:3000/health
+curl http://localhost:3000/metrics
+pgrep -af &quot;node backend&quot;
+tail -f /tmp/server.log</p>
+<p>SAIDA ESPERADA
+{&quot;healthy&quot;:true,&quot;checks&quot;:{&quot;redis&quot;:&quot;ok&quot;,&quot;postgres&quot;:&quot;ok&quot;,&quot;rpc&quot;:&quot;ok&quot;}}
+lista de servicos vivos + log fluindo.</p>
+<p>ERROS REAIS DA SAGA
+Servico morria em silencio e so se descobria quando o usuario
+reclamava. Padrao adotado: nohup + log nomeado + pgrep como rotina de
+rounds; healthcheck com checks reais em vez de 200 fingido.</p>
+<p>PROVA
+Derrube um servico (pkill) e veja o check virar falha / o pgrep
+esvaziar. Ressuba em seguida. Mod aprova: /approve-day day:12</p>
+<hr>
+<h2 id="dia-13--caca-às-chaves-vazadas">Dia 13 — Caca às chaves vazadas</h2>
+<p>O QUE FAZ
+Garantia mecanica de que nenhuma chave privada entra no historico.</p>
+<p>COMO FAZ
+.env fora do git (.gitignore); job secret-scan roda gitleaks em todo o
+historico a cada push; .gitleaks.toml com allowlist documentada contendo
+APENAS as 3 chaves publicas do Hardhat — qualquer outra = CI vermelho.</p>
+<p>COMANDOS FINAIS
+grep -rn &quot;0xac09|0x59c6|0x5de4&quot; backend/ || echo &quot;LIMPO&quot;
+cat .gitleaks.toml</p>
+<p>SAIDA ESPERADA
+LIMPO
+e a allowlist com as 3 chaves de dev comentadas como &quot;proibidas em producao&quot;.</p>
+<p>ERROS REAIS DA SAGA
+A varredura manual achou uma chave hardcoded sobrevivendo num script de
+teste antigo (vouchertest.js). Virou env var como todos os outros
+servicos. Licao: segredo em arquivo de teste tambem eh segredo.</p>
+<p>PROVA
+grep LIMPO + job secret-scan verde no GitHub.
+Mod aprova: /approve-day day:13</p>
+<hr>
+<h2 id="dia-14--cicd-o-porteiro-do-repo-marco-prata">Dia 14 — CI/CD: o porteiro do repo (MARCO PRATA)</h2>
+<p>O QUE FAZ
+Todo push e todo PR passam por secret-scan + build + testes antes de
+existirem como &quot;pronto&quot;.</p>
+<p>COMO FAZ
+.github/workflows/ci.yml: job 1 roda gitleaks via docker no historico
+completo; job 2 instala, compila e roda os 22 testes. Branch protection
+na main bloqueia force push e delete.</p>
+<p>COMANDOS FINAIS
+git push
+# acompanhe em: github.com/<seu-user>/<seu-repo>/actions</p>
+<p>SAIDA ESPERADA
+Run novo com secret-scan verde e build-test verde; badge de CI no
+README brilhando.</p>
+<p>ERROS REAIS DA SAGA
+O historico antigo ainda continha as chaves de dev pre-FASE 0: gitleaks
+com fetch-depth 0 ia reprovar tudo. Solucao honesta: allowlist
+documentada das chaves PUBLICAS do hardhat — o scanner continua cego
+apenas para elas e caca qualquer outra.</p>
+<p>PROVA
+Actions verde apos o push do dia. Mod aprova: /approve-day day:14 -&gt;
+BADGE PRATA mintado + cargo Day-14 · Builder no Discord.</p>
+<hr>
+<p>Fim do Arco 2. Voce agora eh Builder: tem frontend vivo, batches,
+suite obrigatoria, duas fontes de verdade, observabilidade e um
+porteiro que nao dorme. Proximo modulo: produto — bot, badges,
+MCP, tutor, testnet e go-live. Rumo ao ouro.</p>
+
+</body>
+</html>
